@@ -23,6 +23,7 @@
 		<link rel="import" href="../tools/create-link-and-unlink.html">
 		<link rel="import" href="../tools/insert-image.html">
 		<link rel="import" href="../tools/insert-list.html">
+		<link rel="import" href="../tools/checkbox.html">
 		<link rel="import" href="../tools/indent.html">
 		<link rel="import" href="../tools/outdent.html">
 		<link rel="import" href="../tools/heading.html">
@@ -71,6 +72,7 @@
       			<wysiwyg-tool-create-link-and-unlink class="wysiwyg-tool"></wysiwyg-tool-create-link-and-unlink>
       			<wysiwyg-tool-insert-image class="wysiwyg-tool"></wysiwyg-tool-insert-image>
       			<wysiwyg-tool-insert-list class="wysiwyg-tool"></wysiwyg-tool-insert-list>
+						<wysiwyg-tool-checkbox class="wysiwyg-tool"></wysiwyg-tool-checkbox>
       			<wysiwyg-tool-indent class="wysiwyg-tool"></wysiwyg-tool-indent>
       			<wysiwyg-tool-outdent class="wysiwyg-tool"></wysiwyg-tool-outdent>
       			<wysiwyg-tool-heading class="wysiwyg-tool" h1 h2 h3 h4 h5 h6></wysiwyg-tool-heading>
@@ -135,20 +137,20 @@
     	          _readmeOrValue: function () {
     	            this.$.wysiwygE.clearHistory();
     	            var value, search = document.location.search.substring(1);
-    
+
                   if (search) {
                     var pairs = search.split('&');
-    
+
                     for (var i = 0; i < pairs.length; i += 1) {
                       var pair = pairs[i].split('=');
-    
+
                       if (pair[0] === 'value' && pair.length === 2) {
                         value = this.urldecode(pair[1]);
                         break;
                       }
                     }
                   }
-    
+
                   if (!value) value = this.marked(this.readme);
                   this.value = value;
     	          }

@@ -43,6 +43,7 @@
     "prism-element": "PolymerElements/prism-element#latest",
     "marked-element": "PolymerElements/marked-element#latest",
     "selection-mgr": "miztroh/selection-mgr#latest",
-    "undo-mgr": "miztroh/undo-mgr#latest"
+    "undo-mgr": "miztroh/undo-mgr#latest",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.1.2"
   }
 }

@@ -1,4 +1,22 @@
-# wysiwyg-e [![Build Status](https://travis-ci.org/miztroh/wysiwyg-e.svg?branch=master)](https://travis-ci.org/miztroh/wysiwyg-e)
+## Test:
+
+<p>
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 1
+<input type="checkbox" onclick="onChecboxClick(event)"checked/> Checkbox 2
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 3
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 4
+</p>
+
+<p>
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 1<br>
+<input type="checkbox" onclick="onChecboxClick(event)"checked/> Checkbox 2<br>
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 3<br>
+<input type="checkbox" onclick="onChecboxClick(event)"/> Checkbox 4<br>
+</p>
+
+
+# wysiwyg-e
+<!-- [![Build Status](https://travis-ci.org/miztroh/wysiwyg-e.svg?branch=master)](https://travis-ci.org/miztroh/wysiwyg-e) -->
 
 > /wɪziwɪɡi/
 

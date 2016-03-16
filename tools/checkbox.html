@@ -1,0 +1,108 @@
+<link rel="import" href="../../polymer/polymer.html">
+<!-- <link rel="import" href="../../paper-checkbox/paper-checkbox.html"> -->
+<link rel="import" href="../../paper-button/paper-button.html">
+<link rel="import" href="../../iron-icon/iron-icon.html">
+<link rel="import" href="../../iron-iconset-svg/iron-iconset-svg.html">
+<link rel="import" href="tools-icons.html">
+<link rel="import" href="../../iron-icons/editor-icons.html">
+<link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../iron-media-query/iron-media-query.html">
+<link rel="import" href="../wysiwyg-tool-behavior.html">
+<link rel="import" href="../wysiwyg-tool-styles.html">
+
+<dom-module id="wysiwyg-tool-checkbox">
+	<template>
+		<style include="wysiwyg-tool-styles"></style>
+		<iron-media-query query="(min-width: 768px)" query-matches="{{minWidth768px}}"></iron-media-query>
+		<paper-button disabled="[[disabled]]" id="button">
+		  <iron-icon icon="tools-icons:check-box"></iron-icon>
+		</paper-button>
+		<paper-tooltip id="tooltip" for="button" position="[[tooltipPosition]]">Checkbox ([[modifier.tooltip]] + Shift + C)</paper-tooltip>
+		<iron-a11y-keys id="a11y" target="[[target]]" keys="[[modifier.key]]+shift+C" on-keys-pressed="execCommand"></iron-a11y-keys>
+	</template>
+
+	<script>
+		function onChecboxClick(event) {
+			// console.log('_onChecboxClick: ', event.target.checked, Polymer.dom(this.root));
+			event.target.setAttribute('checked', event.target.checked);
+		}
+
+		Polymer(
+			{
+				is: 'wysiwyg-tool-checkbox',
+
+				behaviors: [
+					WYSIWYG.ToolBehavior
+				],
+
+				properties: {
+				  minWidth768px: {
+				    type: Boolean
+				  },
+				  tooltipPosition: {
+				    type: String,
+				    computed: '_computeTooltipPosition(minWidth768px)'
+				  }
+				},
+
+				ready: function () {
+					this._setCommand('formatBlock');
+				},
+
+				execCommand: function () {
+					console.log('execCommand: ', this.active, 'tagName:', this.commonAncestorPath[1].firstChild,this.commonAncestorPath);
+					if (this.disabled || !this.range0) return false;
+
+					if (!this.active) {
+  				  if (this.commonAncestorPath) {
+  					  for (var i = 0; i < this.commonAncestorPath.length; i += 1) {
+								console.log('Add tagName: ',this.commonAncestorPath[i].firstChild)
+  							if (this.commonAncestorPath[i].tagName === 'INPUT') {
+  							  var checkbox = this.commonAncestorPath[i];
+  							  var parent = checkbox.parentNode;
+  							  this.range0.selectNodeContents(checkbox);
+  							  parent.insertBefore(this.range0.extractContents(), checkbox);
+  							  parent.removeChild(checkbox);
+  							  break;
+  							}
+  						}
+  				  }
+						document.execCommand('insertHTML', null, '<input type="checkbox" onclick="onChecboxClick(event)" class="checkbox"/>&nbsp; ');
+					} else {
+					  if (this.commonAncestorPath) {
+							console.log('Remove tagName: ',this.commonAncestorPath[i].firstChild)
+  					  for (var i = 0; i < this.commonAncestorPath.length; i += 1) {
+  							if (this.commonAncestorPath[i].tagName === 'INPUT') {
+  							  var checkbox = this.commonAncestorPath[i];
+  							  var parent = checkbox.parentNode;
+  							  this.range0.selectNodeContents(checkbox);
+  							  parent.insertBefore(this.range0.extractContents(), checkbox);
+  							  parent.removeChild(checkbox);
+  							  break;
+  							}
+  						}
+  					} else {
+						  document.execCommand('forwardDelete', null, 'INPUT');
+  					}
+					}
+				},
+
+				queryCommandState: function () {
+					console.log('fname: ',this.range0, this.commonAncestorPath);
+					if (this.range0 && this.commonAncestorPath) {
+					  for (var i = 0; i < this.commonAncestorPath.length; i += 1) {
+							if (this.commonAncestorPath[i].tagName === 'INPUT') return true;
+						}
+					}
+					return false;
+				},
+
+				_computeTooltipPosition: function (minWidth768px) {
+				  if (minWidth768px) return 'bottom';
+				  return 'right';
+				},
+			}
+		);
+	</script>
+</dom-module>

@@ -47,7 +47,7 @@
 
 			#editable :last-child {
 				margin-bottom: 0;
-				@apply(--wysiwyg-editable-last-child); 
+				@apply(--wysiwyg-editable-last-child);
 			}
 
 			#editable ::selection {
@@ -137,6 +137,10 @@
 
       #editable strike {
         @apply(--wysiwyg-editable-strike);
+      }
+
+			#editable input[type=checkbox] {
+        @apply(--wysiwyg-editable-checkbox);
       }
 
       #html {
